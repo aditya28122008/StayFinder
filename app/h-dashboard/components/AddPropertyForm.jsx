@@ -9,7 +9,7 @@ export default function AddPropertyForm({ handleSubmit }) {
     const submit = await handleSubmit(e);
     if (submit && submit.success) {
       toast.success("Property added successfully!");
-      router.push("/h-dashboard");
+      router.push("/h-dashboard/listings");
     }
   };
   return (

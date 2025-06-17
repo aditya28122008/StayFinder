@@ -9,8 +9,8 @@ const Sidebar = () => {
     { label: "Dashboard", icon: Home, href: "/h-dashboard" },
     { label: "Listings", icon: List, href: "/h-dashboard/listings" },
     { label: "Sell Property", icon: Plus, href: "/h-dashboard/sell-property" },
-    { label: "Bookings", icon: Calendar, href: "/h-dashboard/bookings" },
-    { label: "Settings", icon: Settings, href: "/h-dashboard/settings" },
+    // { label: "Bookings", icon: Calendar, href: "/h-dashboard/bookings" },
+    // { label: "Settings", icon: Settings, href: "/h-dashboard/settings" },
   ];
   return (
     <>
