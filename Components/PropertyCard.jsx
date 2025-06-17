@@ -8,7 +8,7 @@ export default function PropertyCard({ property, images }) {
   const { title, description, price, discountedPrice, id } = property;
 
   return (
-    <Link href={`/view/${id}`}>
+    <Link prefetch href={`/view/${id}`}>
       <div className="relative hover:scale-3d hover:scale-110 cursor-pointer rounded-2xl overflow-hidden bg-white dark:bg-gray-900 border border-cyan-100 dark:border-gray-700 shadow-lg hover:shadow-xl transition-all duration-300">
         {/* Image */}
         <div className="relative h-60 w-full">

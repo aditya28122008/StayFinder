@@ -15,6 +15,7 @@ export default function NotFound() {
         Oops! The page you&apos;re looking for doesn’t exist or has been moved.
       </p>
       <Link
+        prefetch
         href="/"
         className="inline-block bg-blue-600 hover:bg-blue-700 dark:bg-cyan-500 dark:hover:bg-cyan-600 text-white px-6 py-2 rounded-full shadow-md transition"
       >
