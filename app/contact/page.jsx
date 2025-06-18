@@ -87,7 +87,7 @@ export default function Contact() {
         </div>
 
         {/* Contact Form */}
-        <form onSubmit={handleSubmit} className="max-w-xl w-full space-y-6">
+        <form className="max-w-xl w-full space-y-6">
           <div className="relative z-0 w-full group">
             <input
               type="text"
@@ -95,8 +95,6 @@ export default function Contact() {
               id="name"
               className="block py-2.5 px-0 w-full text-sm bg-transparent border-0 border-b-2 border-gray-300 appearance-none text-gray-900 dark:text-white dark:border-gray-600 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
               placeholder=" "
-              value={form.name}
-              onChange={handleChange}
               required
             />
             <label
@@ -114,8 +112,6 @@ export default function Contact() {
               id="email"
               className="block py-2.5 px-0 w-full text-sm bg-transparent border-0 border-b-2 border-gray-300 appearance-none text-gray-900 dark:text-white dark:border-gray-600 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
               placeholder=" "
-              value={form.email}
-              onChange={handleChange}
               required
             />
             <label
@@ -133,8 +129,6 @@ export default function Contact() {
               rows="5"
               className="block py-2.5 px-0 w-full text-sm bg-transparent border-0 border-b-2 border-gray-300 appearance-none text-gray-900 dark:text-white dark:border-gray-600 focus:outline-none focus:ring-0 focus:border-blue-600 peer resize-none"
               placeholder=" "
-              value={form.message}
-              onChange={handleChange}
               required
             ></textarea>
             <label
