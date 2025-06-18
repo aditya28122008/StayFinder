@@ -4,13 +4,29 @@ import { useRouter } from "next/navigation";
 import { toast } from "react-toastify";
 
 export default function AddPropertyForm({ handleSubmit }) {
-  const router = useRouter()
+  const router = useRouter();
   const handleSubmitAction = async (e) => {
-    const submit = await handleSubmit(e);
-    if (submit && submit.success) {
-      toast.success("Property added successfully!");
-      router.push("/h-dashboard/listings");
-    }
+    const submitPromise = async () => {
+      const result = await handleSubmit(e);
+      if (!result || !result.success) {
+        throw new Error("Failed to add the property. Please try again.");
+      }
+      return result;
+    };
+
+    toast
+      .promise(submitPromise(), {
+        pending: "Submitting your property...",
+        success: "Property added successfully! 🎉",
+        error: {
+          render({ data }) {
+            return `${data.message}`;
+          },
+        },
+      })
+      .then(() => {
+        router.push("/h-dashboard/listings");
+      });
   };
   return (
     <form
