@@ -5,7 +5,7 @@ import { Heart } from "lucide-react";
 import Link from "next/link";
 
 export default function PropertyCard({ property, images }) {
-  const { title, description, price, discountedPrice, id } = property;
+  const { name, description, price, discountedPrice, id } = property;
 
   return (
     <Link prefetch href={`/view/${id}`}>
@@ -14,7 +14,7 @@ export default function PropertyCard({ property, images }) {
         <div className="relative h-60 w-full">
           <Image
             src={images[0].url}
-            alt={title}
+            alt={name}
             fill
             className="object-cover"
             sizes="(max-width: 768px) 100vw, 33vw"
@@ -32,7 +32,7 @@ export default function PropertyCard({ property, images }) {
         {/* Content */}
         <div className="p-4 space-y-2">
           <h3 className="text-lg font-semibold text-cyan-900 dark:text-cyan-300">
-            {title}
+            {name}
           </h3>
           <p className="text-sm text-gray-600 dark:text-gray-400 line-clamp-2">
             {description}

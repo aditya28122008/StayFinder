@@ -20,6 +20,7 @@ model User {
   properties    Property[]
   createdAt     DateTime        @default(now())
   updatedAt     DateTime        @updatedAt
+  Bookings      Bookings[]
 }
 
 model Image {
@@ -31,7 +32,7 @@ model Image {
 }
 
 model Property {
-  id              String   @id @default(auto()) @map("_id") @db.ObjectId
+  id              String     @id @default(auto()) @map("_id") @db.ObjectId
   name            String
   description     String
   street          String
@@ -44,30 +45,41 @@ model Property {
   images          Image[]
   price           Int
   discountedPrice Int
-  hostId          String   @db.ObjectId
-  host            User     @relation(fields: [hostId], references: [id], onDelete: Cascade)
-  createdAt       DateTime @default(now())
-  updatedAt       DateTime @updatedAt
+  hostId          String     @db.ObjectId
+  host            User       @relation(fields: [hostId], references: [id], onDelete: Cascade)
+  createdAt       DateTime   @default(now())
+  updatedAt       DateTime   @updatedAt
+  Bookings        Bookings[]
+}
+
+model Bookings {
+  id         String   @id @default(auto()) @map("_id") @db.ObjectId
+  startDate  DateTime
+  endDate    DateTime
+  userId     String   @db.ObjectId
+  user       User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  propertyId String   @db.ObjectId
+  property   Property @relation(fields: [propertyId], references: [id], onDelete: Cascade)
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
 }
 
 model Account {
-  id                String  @id @default(auto()) @map("_id") @db.ObjectId
-  userId            String  @db.ObjectId
+  id                String   @id @default(auto()) @map("_id") @db.ObjectId
+  userId            String   @db.ObjectId
   type              String
   provider          String
   providerAccountId String
-  refresh_token     String? @db.String
-  access_token      String? @db.String
+  refresh_token     String?  @db.String
+  access_token      String?  @db.String
   expires_at        Int?
   token_type        String?
   scope             String?
-  id_token          String? @db.String
+  id_token          String?  @db.String
   session_state     String?
-
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
-
-  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+  createdAt         DateTime @default(now())
+  updatedAt         DateTime @updatedAt
+  user              User     @relation(fields: [userId], references: [id], onDelete: Cascade)
 
   @@unique([provider, providerAccountId])
 }
@@ -78,9 +90,8 @@ model Session {
   userId       String   @db.ObjectId
   expires      DateTime
   user         User     @relation(fields: [userId], references: [id], onDelete: Cascade)
-
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
 }
 
 model VerificationToken {
@@ -102,8 +113,7 @@ model Authenticator {
   credentialDeviceType String
   credentialBackedUp   Boolean
   transports           String?
-
-  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+  user                 User    @relation(fields: [userId], references: [id], onDelete: Cascade)
 
   @@unique([userId, credentialID])
 }
