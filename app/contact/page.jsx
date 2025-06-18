@@ -1,6 +1,5 @@
-"use client";
 
-import { useState } from "react";
+
 import { Mail, Phone, MapPin, Send } from "lucide-react";
 
 export async function generateMetadata() {
@@ -38,15 +37,8 @@ export async function generateMetadata() {
 }
 
 export default function Contact() {
-  const [form, setForm] = useState({ name: "", email: "", message: "" });
 
-  const handleChange = (e) =>
-    setForm({ ...form, [e.target.name]: e.target.value });
-
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    console.log(form); // Add your form submission logic here
-  };
+  
 
   return (
     <div className="min-h-screen px-4 py-12 md:px-20 bg-background text-foreground">
