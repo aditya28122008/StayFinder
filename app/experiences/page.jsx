@@ -47,6 +47,34 @@ const experiences = [
   },
 ];
 
+export const metadata = {
+  title: "Experiences | Stay Finder",
+  description: "Explore curated experiences near your stay, from local tours to food trails and cultural events.",
+  openGraph: {
+    title: "Experiences | Stay Finder",
+    description: "Explore curated experiences near your stay, from local tours to food trails and cultural events.",
+    url: "https://stayfinder-beta.vercel.app/experiences",
+    siteName: "Stay Finder",
+    images: [
+      {
+        url: "https://images.unsplash.com/photo-1533106418989-88406c7cc8a7?auto=format&fit=crop&w=1200&q=80",
+        width: 1200,
+        height: 630,
+        alt: "Experiences with Stay Finder",
+      },
+    ],
+    locale: "en_US",
+    type: "website",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Experiences | Stay Finder",
+    description: "Explore curated experiences near your stay, from local tours to food trails and cultural events.",
+    images: ["https://images.unsplash.com/photo-1533106418989-88406c7cc8a7?auto=format&fit=crop&w=1200&q=80"],
+  },
+};
+
+
 export default function ExperiencesPage() {
   return (
     <>

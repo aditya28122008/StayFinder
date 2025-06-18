@@ -3,6 +3,38 @@
 import { useState } from "react";
 import { Mail, Phone, MapPin, Send } from "lucide-react";
 
+export const metadata = {
+  title: "Contact Us | Stay Finder",
+  description:
+    "Need help or have questions? Get in touch with the Stay Finder team — we're here for you 24/7.",
+  openGraph: {
+    title: "Contact Us | Stay Finder",
+    description:
+      "Need help or have questions? Get in touch with the Stay Finder team — we're here for you 24/7.",
+    url: "https://stayfinder-beta.vercel.app/contact",
+    siteName: "Stay Finder",
+    images: [
+      {
+        url: "https://images.unsplash.com/photo-1588702547923-7093a6c3ba33?auto=format&fit=crop&w=1200&q=80",
+        width: 1200,
+        height: 630,
+        alt: "Contact Stay Finder",
+      },
+    ],
+    locale: "en_US",
+    type: "website",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Contact Us | Stay Finder",
+    description:
+      "Need help or have questions? Get in touch with the Stay Finder team — we're here for you 24/7.",
+    images: [
+      "https://images.unsplash.com/photo-1588702547923-7093a6c3ba33?auto=format&fit=crop&w=1200&q=80",
+    ],
+  },
+};
+
 export default function Contact() {
   const [form, setForm] = useState({ name: "", email: "", message: "" });
 

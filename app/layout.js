@@ -6,6 +6,7 @@ import { ToastContainer, toast } from "react-toastify";
 import ThemeClass from "@/Components/ThemeClass";
 import "swiper/css";
 import "swiper/css/navigation";
+import Footer from "@/Components/Footer";
 
 export const metadata = {
   title: "Stay Finder - Find Your Perfect Stay",
@@ -25,6 +26,7 @@ export default function RootLayout({ children }) {
               <NavbarServer />
               <ToastContainer />
               {children}
+              <Footer />
             </ThemeClass>
           </SessionWrapper>
         </ThemeProvider>
