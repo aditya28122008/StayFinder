@@ -1,12 +1,16 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { DateRange } from "react-date-range";
 import "react-date-range/dist/styles.css";
 import "react-date-range/dist/theme/default.css";
 import { addDays, differenceInDays } from "date-fns";
+import { toast } from "react-toastify";
+import { useRouter } from "next/navigation";
+// import { toast } from "react-toastify";
 
-export default function DatePicker({ onChange, pricePerNight }) {
+export default function DatePicker({ onChange, pricePerNight, propertyId }) {
+  const router = useRouter();
   const [range, setRange] = useState([
     {
       startDate: new Date(),
@@ -14,6 +18,7 @@ export default function DatePicker({ onChange, pricePerNight }) {
       key: "selection",
     },
   ]);
+
   const [totalAmount, setTotalAmount] = useState(0);
 
   const handleSelect = (ranges) => {
@@ -29,22 +34,55 @@ export default function DatePicker({ onChange, pricePerNight }) {
 
     onChange && onChange(selection);
   };
+  const handleBook = async () => {
+    console.log(JSON.stringify(range[0]));
+    const res = await fetch(`/api/bookings/book/${propertyId}`, {
+      method: "POST",
+      body: JSON.stringify(range),
+    });
+    if (res.status === 401) {
+      router.push("/auth");
+    }
+    if (res.status === 409) {
+      toast.warning("Sorry, this place is already booked in the dates you've selected...!");
+    }
+    const data = await res.json();
+
+    if (data.success) {
+      toast.success(
+        `Successfully Booked the property from ${range[0].startDate} to ${range[0].endDate}`
+      );
+    }
+  };
 
   return (
-    <div className="border rounded-lg p-2 space-y-4">
-      <DateRange
-        ranges={range}
-        onChange={handleSelect}
-        moveRangeOnFirstSelection={false}
-        rangeColors={["#06b6d4"]}
-        minDate={new Date()}
-      />
+    <>
+      <div className="border rounded-lg p-2 space-y-4 mb-4">
+        <DateRange
+          ranges={range}
+          onChange={handleSelect}
+          moveRangeOnFirstSelection={false}
+          rangeColors={["#06b6d4"]}
+          minDate={new Date()}
+        />
 
-      {totalAmount > 0 && (
-        <div className="text-center text-lg font-semibold text-cyan-600">
-          Total Amount: ₹{totalAmount.toLocaleString()}
-        </div>
-      )}
-    </div>
+        {totalAmount > 0 && (
+          <div className="text-center text-lg font-semibold text-cyan-600">
+            Total Amount: ₹{totalAmount.toLocaleString()}
+          </div>
+        )}
+      </div>
+      <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+        <button
+          onClick={handleBook}
+          className="bg-cyan-600 hover:bg-cyan-700 text-white py-3 rounded-lg font-semibold transition"
+        >
+          Book Now
+        </button>
+        <button className="border border-cyan-600 text-cyan-600 hover:bg-cyan-50 dark:hover:bg-gray-800 py-3 rounded-lg font-semibold transition">
+          Check Availability
+        </button>
+      </div>
+    </>
   );
 }

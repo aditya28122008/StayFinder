@@ -9,8 +9,9 @@ import { headers } from "next/headers";
 export const dynamic = "force-dynamic"; // Ensures dynamic rendering (needed for headers)
 
 export async function generateMetadata({ params }) {
+  const { id } = await params;
   const property = await prisma.property.findUnique({
-    where: { id: params.id },
+    where: { id: id },
   });
 
   const headersList = headers();
@@ -26,7 +27,7 @@ export async function generateMetadata({ params }) {
         title: "Property Not Found | Stay Finder",
         description: "Sorry, the requested property could not be found.",
         type: "website",
-        url: `${domain}/property/${params.id}`,
+        url: `${domain}/property/${id}`,
       },
     };
   }
@@ -36,11 +37,13 @@ export async function generateMetadata({ params }) {
 
   return {
     title: `${property.name} | Stay Finder`,
-    description: property.description || "Explore this beautiful stay on Stay Finder.",
+    description:
+      property.description || "Explore this beautiful stay on Stay Finder.",
     openGraph: {
       title: `${property.name} | Stay Finder`,
-      description: property.description || "Explore this beautiful stay on Stay Finder.",
-      url: `${domain}/property/${params.id}`,
+      description:
+        property.description || "Explore this beautiful stay on Stay Finder.",
+      url: `${domain}/property/${id}`,
       type: "article",
       images: [
         {
@@ -54,23 +57,22 @@ export async function generateMetadata({ params }) {
     twitter: {
       card: "summary_large_image",
       title: `${property.name} | Stay Finder`,
-      description: property.description || "Explore this beautiful stay on Stay Finder.",
-      images: [
-        images[0].url || `${domain}/default-image.jpg`,
-      ],
+      description:
+        property.description || "Explore this beautiful stay on Stay Finder.",
+      images: [images[0].url || `${domain}/default-image.jpg`],
     },
   };
 }
 
-
 const PropertyPage = async ({ params }) => {
+  const { id } = await params;
   const property = await prisma.property.findUnique({
-    where: { id: params.id },
+    where: { id: id },
   });
   if (!property) return notFound();
 
   const images = await prisma.image.findMany({
-    where: { propertyId: params.id },
+    where: { propertyId: id },
   });
 
   const host = await prisma.user.findUnique({ where: { id: property.hostId } });
@@ -85,7 +87,8 @@ const PropertyPage = async ({ params }) => {
         <div className="md:w-1/2">
           {/* Host or Brand */}
           <p className="text-sm text-gray-500 dark:text-gray-400 mb-1">
-            Hosted by {host ? host.name : "StayFinder"} {host ? `(${host.email})` : "support@stayfinder.com"}
+            Hosted by {host ? host.name : "StayFinder"}{" "}
+            {host ? `(${host.email})` : "support@stayfinder.com"}
           </p>
 
           {/* Title */}
@@ -128,18 +131,9 @@ const PropertyPage = async ({ params }) => {
             <h2 className="text-lg font-semibold mb-3">Select Your Stay</h2>
 
             {/* Date Selector */}
-            <div className="mb-4">
-              <DateSelector pricePerNight={property.discountedPrice} />
-            </div>
-
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-              <button className="bg-cyan-600 hover:bg-cyan-700 text-white py-3 rounded-lg font-semibold transition">
-                Book Now
-              </button>
-              <button className="border border-cyan-600 text-cyan-600 hover:bg-cyan-50 dark:hover:bg-gray-800 py-3 rounded-lg font-semibold transition">
-                Check Availability
-              </button>
-            </div>
+            <>
+              <DateSelector pricePerNight={property.discountedPrice} propertyId={property.id} />
+            </>
           </div>
         </div>
       </div>

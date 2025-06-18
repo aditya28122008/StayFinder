@@ -11,6 +11,13 @@ const HostDashboard = async () => {
       hostId: session.user.id,
     },
   });
+  let totalBookings = [];
+  for (const property of properties) {
+    const booking = await prisma.bookings.findMany({
+      where: { propertyId: property.id, checkedOut: false },
+    });
+    totalBookings = totalBookings.concat(booking);
+  }
   const totalProperties = properties.length;
   return (
     <div>
@@ -41,7 +48,10 @@ const HostDashboard = async () => {
           </span>
         </div>
       </header>
-      <IndexComponent totalProperties={totalProperties} />
+      <IndexComponent
+        totalProperties={totalProperties}
+        totalBookings={totalBookings}
+      />
     </div>
   );
 };

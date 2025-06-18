@@ -60,6 +60,8 @@ model Bookings {
   user       User     @relation(fields: [userId], references: [id], onDelete: Cascade)
   propertyId String   @db.ObjectId
   property   Property @relation(fields: [propertyId], references: [id], onDelete: Cascade)
+  checkedOut Boolean  @default(false)
+  checkedIn  Boolean  @default(false)
   createdAt  DateTime @default(now())
   updatedAt  DateTime @updatedAt
 }

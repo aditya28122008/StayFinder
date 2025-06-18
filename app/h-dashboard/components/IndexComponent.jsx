@@ -3,7 +3,7 @@ import { useTheme } from "next-themes";
 import { Home, CalendarCheck, IndianRupee } from "lucide-react";
 import Link from "next/link";
 
-export default function IndexComponent({ totalProperties }) {
+export default function IndexComponent({ totalProperties, totalBookings }) {
   const { theme } = useTheme();
   const metrics = [
     {
@@ -16,7 +16,7 @@ export default function IndexComponent({ totalProperties }) {
     {
       icon: <CalendarCheck className="w-6 h-6 text-green-500" />,
       title: "Bookings",
-      value: 23,
+      value: totalBookings.length,
       href: "#",
       color: "bg-green-900/10 dark:bg-green-600/10",
     },
