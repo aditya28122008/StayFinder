@@ -40,32 +40,35 @@ import prisma from "@/lib/prisma";
 //   },
 // ];
 
-export const metadata = {
-  title: "Stay Finder | Discover Your Next Stay",
-  description: "Find unique places to stay, book easily, and experience travel like never before with Stay Finder.",
-  openGraph: {
+export async function generateMetadata() {
+  return {
     title: "Stay Finder | Discover Your Next Stay",
     description: "Find unique places to stay, book easily, and experience travel like never before with Stay Finder.",
-    url: "https://stayfinder-beta.vercel.app",
-    siteName: "Stay Finder",
-    images: [
-      {
-        url: "https://images.unsplash.com/photo-1560347876-aeef00ee58a1?auto=format&fit=crop&w=1200&q=80",
-        width: 1200,
-        height: 630,
-        alt: "Stay Finder Hero Image",
-      },
-    ],
-    locale: "en_US",
-    type: "website",
-  },
-  twitter: {
-    card: "summary_large_image",
-    title: "Stay Finder | Discover Your Next Stay",
-    description: "Find unique places to stay, book easily, and experience travel like never before with Stay Finder.",
-    images: ["https://images.unsplash.com/photo-1560347876-aeef00ee58a1?auto=format&fit=crop&w=1200&q=80"],
-  },
-};
+    openGraph: {
+      title: "Stay Finder | Discover Your Next Stay",
+      description: "Find unique places to stay, book easily, and experience travel like never before with Stay Finder.",
+      url: "https://stayfinder-beta.vercel.app",
+      siteName: "Stay Finder",
+      images: [
+        {
+          url: "https://images.unsplash.com/photo-1560347876-aeef00ee58a1?auto=format&fit=crop&w=1200&q=80",
+          width: 1200,
+          height: 630,
+          alt: "Stay Finder Hero Image",
+        },
+      ],
+      locale: "en_US",
+      type: "website",
+    },
+    twitter: {
+      card: "summary_large_image",
+      title: "Stay Finder | Discover Your Next Stay",
+      description: "Find unique places to stay, book easily, and experience travel like never before with Stay Finder.",
+      images: ["https://images.unsplash.com/photo-1560347876-aeef00ee58a1?auto=format&fit=crop&w=1200&q=80"],
+    },
+  };
+}
+
 
 
 export default async function PropertyGrid() {

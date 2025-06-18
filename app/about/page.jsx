@@ -1,36 +1,34 @@
 import Image from "next/image";
 
-export const metadata = {
-  title: "About Us | Stay Finder",
-  description:
-    "Learn about Stay Finder's mission, team, and how we make finding unique stays easier and safer for everyone.",
-  openGraph: {
+export async function generateMetadata() {
+  return {
     title: "About Us | Stay Finder",
-    description:
-      "Learn about Stay Finder's mission, team, and how we make finding unique stays easier and safer for everyone.",
-    url: "https://stayfinder-beta.vercel.app/about",
-    siteName: "Stay Finder",
-    images: [
-      {
-        url: "https://images.unsplash.com/photo-1542314831-068cd1dbfeeb?auto=format&fit=crop&w=1200&q=80",
-        width: 1200,
-        height: 630,
-        alt: "About Stay Finder",
-      },
-    ],
-    locale: "en_US",
-    type: "website",
-  },
-  twitter: {
-    card: "summary_large_image",
-    title: "About Us | Stay Finder",
-    description:
-      "Learn about Stay Finder's mission, team, and how we make finding unique stays easier and safer for everyone.",
-    images: [
-      "https://images.unsplash.com/photo-1542314831-068cd1dbfeeb?auto=format&fit=crop&w=1200&q=80",
-    ],
-  },
-};
+    description: "Learn about Stay Finder's mission, team, and how we make finding unique stays easier and safer for everyone.",
+    openGraph: {
+      title: "About Us | Stay Finder",
+      description: "Learn about Stay Finder's mission, team, and how we make finding unique stays easier and safer for everyone.",
+      url: "https://stayfinder-beta.vercel.app/about",
+      siteName: "Stay Finder",
+      images: [
+        {
+          url: "https://images.unsplash.com/photo-1542314831-068cd1dbfeeb?auto=format&fit=crop&w=1200&q=80",
+          width: 1200,
+          height: 630,
+          alt: "About Stay Finder",
+        },
+      ],
+      locale: "en_US",
+      type: "website",
+    },
+    twitter: {
+      card: "summary_large_image",
+      title: "About Us | Stay Finder",
+      description: "Learn about Stay Finder's mission, team, and how we make finding unique stays easier and safer for everyone.",
+      images: ["https://images.unsplash.com/photo-1542314831-068cd1dbfeeb?auto=format&fit=crop&w=1200&q=80"],
+    },
+  };
+}
+
 
 export default function AboutPage() {
   return (
