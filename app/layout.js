@@ -11,7 +11,7 @@ export const metadata = {
   title: "Stay Finder - Find Your Perfect Stay",
   description: "Find your perfect stay",
 };
-
+// A comment
 export default function RootLayout({ children }) {
   return (
     <html lang="en">
