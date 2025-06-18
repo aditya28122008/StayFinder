@@ -35,24 +35,47 @@ export default function DatePicker({ onChange, pricePerNight, propertyId }) {
     onChange && onChange(selection);
   };
   const handleBook = async () => {
-    console.log(JSON.stringify(range[0]));
-    const res = await fetch(`/api/bookings/book/${propertyId}`, {
-      method: "POST",
-      body: JSON.stringify(range),
-    });
-    if (res.status === 401) {
-      router.push("/auth");
-    }
-    if (res.status === 409) {
-      toast.warning("Sorry, this place is already booked in the dates you've selected...!");
-    }
-    const data = await res.json();
+    const bookingPromise = async () => {
+      const res = await fetch(`/api/bookings/book/${propertyId}`, {
+        method: "POST",
+        body: JSON.stringify(range),
+      });
 
-    if (data.success) {
-      toast.success(
-        `Successfully Booked the property from ${range[0].startDate} to ${range[0].endDate}`
-      );
-    }
+      if (res.status === 401) {
+        router.push("/auth");
+        throw new Error("Redirecting to login...");
+      }
+
+      if (res.status === 409) {
+        throw new Error(
+          "Sorry, this place is already booked in the selected dates."
+        );
+      }
+
+      const data = await res.json();
+
+      if (!data.success) {
+        throw new Error("Booking failed. Please try again later.");
+      }
+
+      return data;
+    };
+
+    toast.promise(bookingPromise(), {
+      pending: "Booking in progress...",
+      success: {
+        render({ data }) {
+          const start = new Date(range[0].startDate).toLocaleDateString();
+          const end = new Date(range[0].endDate).toLocaleDateString();
+          return `Successfully booked from ${start} to ${end}! 🎉`;
+        },
+      },
+      error: {
+        render({ data }) {
+          return `${data.message}`;
+        },
+      },
+    });
   };
 
   return (
