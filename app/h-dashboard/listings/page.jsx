@@ -45,6 +45,7 @@ const Listings = async () => {
                 </td>
                 <td className="px-6 py-4 text-right">
                   <Link
+                    prefetch
                     href={`/view/${property.id}`}
                     className="font-medium text-blue-600 text-end dark:text-blue-500 hover:underline"
                   >

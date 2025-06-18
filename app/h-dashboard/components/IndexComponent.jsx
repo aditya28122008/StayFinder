@@ -32,7 +32,7 @@ export default function IndexComponent({ totalProperties }) {
   return (
     <section className="p-6 grid grid-cols-1 md:grid-cols-3 gap-6">
       {metrics.map((item, i) => (
-        <Link key={i} href={item.href} className="no-underline">
+        <Link prefetch key={i} href={item.href} className="no-underline">
           <div
             className={`rounded-2xl cursor-pointer hover:shadow-lg dark:hover:shadow-cyan-300 dark:hover:shadow-md p-4 shadow-md backdrop-blur-md ${item.color} border border-white/10 dark:border-white/20 transition-all`}
           >

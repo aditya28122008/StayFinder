@@ -23,13 +23,14 @@ const Sidebar = () => {
         } md:translate-x-0`}
         >
           <div className="p-6 border-b border-gray-200 dark:border-gray-700 w-full text-center">
-            <Link href="/">
+            <Link prefetch href="/">
               <h2 className="text-2xl font-bold text-blue-500">STAY FINDER</h2>
             </Link>
           </div>
           <nav className="flex flex-col gap-2 p-4 w-full">
             {navItems.map(({ label, icon: Icon, href }) => (
               <Link
+                prefetch
                 key={label}
                 href={href}
                 className="flex items-center gap-3 p-2 rounded-lg hover:bg-blue-100 dark:hover:bg-blue-900 transition"
